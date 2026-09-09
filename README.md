@@ -15,6 +15,5 @@ Abrir: https://pharollo.github.io/inmobiliario-vzla/
 - Las fuentes **no se pueden promediar entre sí**: cubren zonas distintas y sus
   precios difieren hasta 2,5× dentro de la misma banda. Filtra por una sola
   fuente si vas a comparar $/m².
-- Los avisos de Facebook Marketplace se muestran sin enlace, por ser
-  publicaciones de particulares. Los teléfonos van enmascarados.
+- Los teléfonos escritos dentro de los títulos van enmascarados.
 - Página marcada `noindex`; no se pretende que aparezca en buscadores.
