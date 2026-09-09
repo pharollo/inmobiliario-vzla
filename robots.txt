@@ -1,0 +1,3 @@
+# No indexar: página para compartir por enlace directo, no para buscadores.
+User-agent: *
+Disallow: /
