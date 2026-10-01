@@ -1,9 +1,13 @@
 #!/usr/bin/env python3
-"""Recosecha ZonaVen y bienesonline, mezcla con lo congelado y reconstruye index.html.
+"""Recosecha ZonaVen, mezcla con lo congelado y reconstruye index.html.
 
-Congelado = lo que no se puede recosechar sin intervención humana:
+Congelado = lo que no se puede recosechar desde un runner de GitHub:
   - Facebook Marketplace: exige sesión iniciada en un navegador
-  - mercadopiso: su protección antibots responde 403 desde datacenter
+  - mercadopiso: su antibots responde 403 desde IP de datacenter
+  - bienesonline: igual; responde desde una IP doméstica pero no desde el runner
+
+Si alguna vez se recosechan, es desde una máquina con IP residencial:
+    python3 cosechar.py          (añadiendo bienesonline() a main)
 """
 import re,json,html,gzip,time,sys,os,threading,queue,urllib.request,statistics as st
 from collections import Counter
@@ -163,10 +167,11 @@ def construir(nuevos,congelado):
 
 def main():
     print("cosechando…",flush=True)
-    nuevos=zonaven()+bienesonline()
+    nuevos=zonaven()
     print(f"  total crudo: {len(nuevos)}",flush=True)
-    if len(nuevos)<300:
-        print("DEMASIADO POCO — no toco nada para no romper la página publicada",flush=True)
+    if len(nuevos)<600:
+        print(f"DEMASIADO POCO ({len(nuevos)}, se esperan >600) — no toco nada "
+              "para no romper la página publicada",flush=True)
         sys.exit(1)
     cong=json.load(open("datos/congelado.json",encoding="utf-8"))
     todo=construir(nuevos,cong)
