@@ -17,3 +17,19 @@ Abrir: https://pharollo.github.io/inmobiliario-vzla/
   fuente si vas a comparar $/m².
 - Los teléfonos escritos dentro de los títulos van enmascarados.
 - Página marcada `noindex`; no se pretende que aparezca en buscadores.
+
+## Mantenimiento
+
+`cosechar.py` corre solo cada lunes en GitHub Actions y recosecha **ZonaVen**.
+
+Las otras tres fuentes están congeladas porque no responden a IPs de datacenter:
+mercadopiso y bienesonline devuelven 403 o vacío desde el runner, y Facebook
+Marketplace exige sesión en un navegador.
+
+Para refrescar bienesonline hay que hacerlo **desde una máquina con IP doméstica**:
+
+    python3 recosechar_bien.py     # actualiza datos/congelado.json
+    git commit -am "..." && git push
+    gh workflow run semanal.yml    # reconstruye la página
+
+Marketplace y mercadopiso no tienen equivalente automático.
