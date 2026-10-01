@@ -24,11 +24,9 @@ jobs:
           python-version: '3.12'
 
       - name: Cosechar portales y reconstruir
-        working-directory: publicar
         run: python3 cosechar.py
 
       - name: Publicar si cambió algo
-        working-directory: publicar
         run: |
           if git diff --quiet -- index.html datos/actual.json; then
             echo "Sin cambios: no se publica."
