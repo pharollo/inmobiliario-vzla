@@ -1,0 +1,44 @@
+name: Recosecha semanal
+
+on:
+  schedule:
+    - cron: '0 9 * * 1'      # lunes 09:00 UTC = 05:00 en Venezuela
+  workflow_dispatch:          # y a mano cuando quieras
+
+permissions:
+  contents: write
+
+concurrency:
+  group: recosecha
+  cancel-in-progress: false
+
+jobs:
+  recosechar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Cosechar portales y reconstruir
+        working-directory: publicar
+        run: python3 cosechar.py
+
+      - name: Publicar si cambió algo
+        working-directory: publicar
+        run: |
+          if git diff --quiet -- index.html datos/actual.json; then
+            echo "Sin cambios: no se publica."
+            exit 0
+          fi
+          n=$(python3 -c "import json;print(len(json.load(open('datos/actual.json'))))")
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html datos/actual.json
+          git commit -m "Recosecha automática: $n avisos ($(date -u +%d/%m/%Y))
+
+          Co-Authored-By: Claude Opus 5 <noreply@anthropic.com>"
+          git push

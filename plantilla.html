@@ -1,0 +1,272 @@
+<meta name="robots" content="noindex, nofollow">
+<title>Explorador Inmobiliario Venezuela</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+Condensed:wght@400;500;600;700&family=IBM+Plex+Serif:ital,wght@0,400;0,500&display=swap">
+<style>
+:root{
+  --paper:#F3F4F1;--surface:#FFFFFF;--surface-2:#EAECE7;
+  --ink:#14201E;--ink-2:#5C6A66;--ink-3:#8A9691;
+  --rule:#D7DCD6;--rule-strong:#B9C1BA;
+  --accent:#0B5750;--accent-soft:#E0EBE8;
+  --fast:#0B5750;--mid:#9A8E4E;--slow:#8F4A32;
+  --warn:#8A6414;--warn-bg:#F5EEDC;
+  --shadow:0 1px 2px rgba(20,32,30,.06);
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --paper:#0E1412;--surface:#161E1C;--surface-2:#1E2825;
+  --ink:#E4E9E5;--ink-2:#96A29E;--ink-3:#6B7874;
+  --rule:#293331;--rule-strong:#3A4643;
+  --accent:#5CBBAD;--accent-soft:#16302C;
+  --fast:#5CBBAD;--mid:#C4B570;--slow:#D08262;
+  --warn:#D6A73F;--warn-bg:#2A2415;
+  --shadow:0 1px 2px rgba(0,0,0,.3);
+}}
+:root[data-theme="dark"]{
+  --paper:#0E1412;--surface:#161E1C;--surface-2:#1E2825;
+  --ink:#E4E9E5;--ink-2:#96A29E;--ink-3:#6B7874;
+  --rule:#293331;--rule-strong:#3A4643;
+  --accent:#5CBBAD;--accent-soft:#16302C;
+  --fast:#5CBBAD;--mid:#C4B570;--slow:#D08262;
+  --warn:#D6A73F;--warn-bg:#2A2415;
+  --shadow:0 1px 2px rgba(0,0,0,.3);
+}
+*{box-sizing:border-box}
+body{background:var(--paper);color:var(--ink);margin:0;
+  font-family:"IBM Plex Serif",Georgia,serif;font-size:14px;line-height:1.55}
+h1,h2,label,th,button,select,input,.chip,.lbl{font-family:"IBM Plex Sans Condensed","Helvetica Neue",Arial,sans-serif}
+.num{font-family:"IBM Plex Mono",ui-monospace,monospace;font-variant-numeric:tabular-nums}
+.wrap{max-width:1240px;margin:0 auto;padding:0 20px 60px}
+header{border-bottom:2px solid var(--ink);padding:26px 0 12px}
+h1{font-size:clamp(24px,3.4vw,36px);font-weight:700;letter-spacing:-.02em;margin:0 0 4px}
+.sub{color:var(--ink-2);margin:0;font-style:italic;max-width:64ch}
+.lbl{text-transform:uppercase;letter-spacing:.09em;font-size:10px;font-weight:600;color:var(--ink-3)}
+
+.panel{position:sticky;top:0;z-index:5;background:var(--paper);
+  border-bottom:1px solid var(--rule);padding:14px 0 12px;margin-bottom:18px}
+.filtros{display:grid;grid-template-columns:repeat(auto-fit,minmax(122px,1fr));gap:10px 12px;align-items:end}
+.f{display:flex;flex-direction:column;gap:3px;min-width:0}
+select,input[type=text]{font-size:12.5px;padding:5px 7px;border:1px solid var(--rule-strong);
+  border-radius:3px;background:var(--surface);color:var(--ink);width:100%}
+input[type=range]{width:100%;margin:0}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+button.reset{background:transparent;border:1px solid var(--rule-strong);border-radius:3px;
+  color:var(--ink);font-size:11px;text-transform:uppercase;letter-spacing:.07em;padding:6px 12px;cursor:pointer}
+button.reset:hover{background:var(--surface-2)}
+
+.stats{display:flex;flex-wrap:wrap;gap:0;border-top:1px solid var(--rule);margin-top:12px;padding-top:10px}
+.stats div{padding-right:20px;margin-right:20px;border-right:1px solid var(--rule)}
+.stats div:last-child{border-right:0}
+.stats b{display:block;font-family:"IBM Plex Mono",monospace;font-size:17px;font-weight:500}
+
+figure{margin:0 0 22px;background:var(--surface);border:1px solid var(--rule);
+  border-radius:4px;padding:12px 12px 6px;box-shadow:var(--shadow)}
+figcaption{font-family:"IBM Plex Sans Condensed",sans-serif;font-size:11.5px;color:var(--ink-2);
+  padding:8px 2px 2px;border-top:1px solid var(--rule);margin-top:4px}
+svg{display:block;width:100%;height:auto}
+
+.tabla-wrap{overflow-x:auto;border:1px solid var(--rule);border-radius:4px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;font-size:13px}
+th{font-size:10.5px;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-3);font-weight:600;
+  text-align:right;padding:9px 9px;border-bottom:1px solid var(--rule-strong);white-space:nowrap;
+  cursor:pointer;user-select:none;position:sticky;top:0;background:var(--surface)}
+th:hover{color:var(--accent)}
+th.izq{text-align:left}
+th .ord{color:var(--accent);font-size:9px}
+td{padding:7px 9px;border-bottom:1px solid var(--rule);text-align:right;white-space:nowrap}
+td.izq{text-align:left;white-space:normal}
+tbody tr:hover{background:var(--surface-2)}
+.tit{max-width:38ch;font-size:12.5px;line-height:1.3}
+a{color:var(--accent);text-decoration:none;border-bottom:1px solid transparent}
+a:hover{border-bottom-color:var(--accent)}
+.chip{display:inline-block;font-size:9.5px;text-transform:uppercase;letter-spacing:.05em;
+  padding:2px 6px;border-radius:2px;font-weight:600}
+.c-zona{background:var(--accent-soft);color:var(--accent)}
+.c-bien{background:var(--surface-2);color:var(--ink-2)}
+.c-merc{background:var(--warn-bg);color:var(--warn)}
+.c-mkpl{background:color-mix(in srgb,var(--slow) 16%,transparent);color:var(--slow)}
+.cell{display:inline-block;padding:2px 7px;border-radius:3px;
+  font-family:"IBM Plex Mono",monospace;font-variant-numeric:tabular-nums;font-weight:500}
+.n{color:var(--ink-3);font-size:11px}
+.mas{margin:14px auto 0;display:block;padding:8px 22px;background:transparent;
+  border:1px solid var(--rule-strong);border-radius:3px;color:var(--ink);
+  font-size:11.5px;text-transform:uppercase;letter-spacing:.08em;cursor:pointer;font-family:"IBM Plex Sans Condensed",sans-serif}
+.mas:hover{background:var(--surface-2)}
+.aviso{background:var(--warn-bg);border-left:3px solid var(--warn);padding:11px 15px;
+  font-size:13px;border-radius:0 3px 3px 0;margin:0 0 18px}
+footer{border-top:1px solid var(--rule);margin-top:26px;padding-top:14px;font-size:12px;color:var(--ink-3)}
+@media(max-width:640px){.stats div{border-right:0;padding-right:14px;margin-right:14px}}
+</style>
+
+<div class="wrap">
+<header>
+  <h1>Explorador Inmobiliario Venezuela</h1>
+  <p class="sub">2.372 avisos comerciales de cuatro fuentes, sin duplicados. Filtra, ordena y abre el original.</p>
+</header>
+
+<div class="panel">
+  <div class="filtros">
+    <div class="f"><label class="lbl" for="q">Buscar</label><input type="text" id="q" placeholder="zona, título…"></div>
+    <div class="f"><label class="lbl" for="ff">Fuente</label><select id="ff"><option value="">Todas</option></select></div>
+    <div class="f"><label class="lbl" for="fo">Operación</label><select id="fo"><option value="">Ambas</option><option value="v">Venta</option><option value="a">Alquiler</option></select></div>
+    <div class="f"><label class="lbl" for="ft">Tipo</label><select id="ft"><option value="">Todos</option><option value="l">Local</option><option value="g">Galpón</option><option value="o">Oficina</option></select></div>
+    <div class="f"><label class="lbl" for="fb">Tamaño</label><select id="fb"><option value="">Todos</option></select></div>
+    <div class="f"><label class="lbl" for="fe">Estado</label><select id="fe"><option value="">Todos</option></select></div>
+    <div class="f"><label class="lbl" for="fc">Ciudad</label><select id="fc"><option value="">Todas</option></select></div>
+    <div class="f"><label class="lbl" for="fq">Publica</label><select id="fq"><option value="">Todos</option><option value="particular">Particular</option><option value="corredor">Corredor</option></select></div>
+    <div class="f"><label class="lbl" for="fd">Desvío máx · <span class="num" id="fd-v">+300</span>%</label><input type="range" id="fd" min="-90" max="300" step="10" value="300"></div>
+    <div class="f"><label class="lbl" for="fy">Repago máx · <span class="num" id="fy-v">40</span> a</label><input type="range" id="fy" min="1" max="40" step="1" value="40"></div>
+    <div class="f"><button class="reset" id="reset">Limpiar</button></div>
+  </div>
+  <div class="stats" id="stats"></div>
+</div>
+
+<div class="aviso" id="aviso"></div>
+
+<figure>
+  <svg id="hist" viewBox="0 0 900 150" role="img" aria-label="Distribución del precio por m² de la selección"></svg>
+  <figcaption id="histcap">Distribución de $/m² en la selección</figcaption>
+</figure>
+
+<div class="tabla-wrap"><table id="tb"></table></div>
+<button class="mas" id="mas">Mostrar más</button>
+
+<footer id="ft2"></footer>
+</div>
+
+<script id="D" type="application/json">__DATOS__</script>
+<script>
+const R=JSON.parse(document.getElementById('D').textContent);
+const FU={zona:'ZonaVen',bien:'bienesonline',merc:'mercadopiso',mkpl:'Marketplace'};
+const TI={l:'local',g:'galpón',o:'oficina'};
+const OP={v:'venta',a:'alquiler'};
+const BL={XS:'15–50 m²',S:'50–120 m²',M:'120–300 m²',L:'300–800 m²',XL:'800+ m²'};
+const ORD=['XS','S','M','L','XL'];
+const css=v=>getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+const f0=n=>n==null?'—':Math.round(n).toLocaleString('es-VE');
+const f1=n=>n==null?'—':n.toLocaleString('es-VE',{maximumFractionDigits:1});
+const med=a=>{if(!a.length)return null;const s=[...a].sort((x,y)=>x-y);return s[Math.floor(s.length/2)]};
+
+// rellenar desplegables
+const sel=(id,vals,fmt)=>{const e=document.getElementById(id);
+  vals.forEach(v=>e.insertAdjacentHTML('beforeend',`<option value="${v}">${fmt?fmt(v):v}</option>`))};
+sel('ff',[...new Set(R.map(r=>r.f))].sort(),v=>FU[v]||v);
+sel('fb',ORD.filter(b=>R.some(r=>r.b===b)),v=>BL[v]);
+sel('fe',[...new Set(R.map(r=>r.e).filter(Boolean))].sort());
+sel('fc',[...new Set(R.map(r=>r.c).filter(Boolean))].sort());
+
+let orden='dv', asc=true, lim=60;
+const COLS=[
+  ['n','Inmueble',1],['f','Fuente',0],['op','Op.',0],['t','Tipo',0],
+  ['m','m²',0],['p','Precio',0],['pm','$/m²',0],['dv','Desvío',0],['y','Repago',0],
+  ['e','Estado',0],['c','Ciudad',0]
+];
+function filtra(){
+  const q=document.getElementById('q').value.toLowerCase().trim();
+  const g=id=>document.getElementById(id).value;
+  const dmax=+document.getElementById('fd').value, ymax=+document.getElementById('fy').value;
+  document.getElementById('fd-v').textContent=(dmax>0?'+':'')+dmax;
+  document.getElementById('fy-v').textContent=ymax;
+  return R.filter(r=>{
+    if(g('ff')&&r.f!==g('ff'))return false;
+    if(g('fo')&&r.op!==g('fo'))return false;
+    if(g('ft')&&r.t!==g('ft'))return false;
+    if(g('fb')&&r.b!==g('fb'))return false;
+    if(g('fe')&&r.e!==g('fe'))return false;
+    if(g('fc')&&r.c!==g('fc'))return false;
+    if(g('fq')&&r.q!==g('fq'))return false;
+    if(dmax<300&&(r.dv==null||r.dv>dmax))return false;
+    if(ymax<40&&(r.y==null||r.y>ymax))return false;
+    if(q&&!((r.n||'')+' '+(r.z||'')+' '+(r.c||'')).toLowerCase().includes(q))return false;
+    return true;
+  });
+}
+function tono(dv){
+  if(dv==null)return{bg:'transparent',fg:'var(--ink-3)'};
+  const t=Math.max(0,Math.min(1,(dv+90)/240));
+  const c=t<.4?'var(--fast)':t<.62?'var(--mid)':'var(--slow)';
+  return{bg:`color-mix(in srgb, ${c} ${Math.round((0.30-0.20*t)*100)}%, transparent)`,fg:'var(--ink)'};
+}
+function pinta(){
+  const F=filtra();
+  // estadísticas
+  const pm=F.map(r=>r.pm).filter(x=>x!=null), dv=F.filter(r=>r.dv!=null).map(r=>r.dv),
+        y=F.filter(r=>r.y!=null).map(r=>r.y);
+  document.getElementById('stats').innerHTML=[
+    ['Avisos',f0(F.length)],
+    ['$/m² mediano',pm.length?f1(med(pm)):'—'],
+    ['Desvío mediano',dv.length?(med(dv)>0?'+':'')+f0(med(dv))+' %':'—'],
+    ['Repago mediano',y.length?f1(med(y))+' a':'—'],
+    ['Bajo 5 años',y.length?f0(y.filter(x=>x<5).length):'—']
+  ].map(([k,v])=>`<div><span class="lbl">${k}</span><b>${v}</b></div>`).join('');
+  // histograma de $/m²
+  (function(){
+    const S=document.getElementById('hist'),W=900,H=150,L=40,Rr=12,T=12,B=28;
+    if(!pm.length){S.innerHTML='';return}
+    const s=[...pm].sort((a,b)=>a-b), hi=s[Math.floor(s.length*0.95)]||1, NB=44;
+    const bins=new Array(NB).fill(0);
+    pm.forEach(v=>bins[Math.min(NB-1,Math.floor(v/hi*NB))]++);
+    const mx=Math.max(...bins)||1;
+    let g='';
+    for(let i=0;i<NB;i++){
+      const x=L+(W-L-Rr)*i/NB, w=(W-L-Rr)/NB-1.5, h=(H-T-B)*bins[i]/mx;
+      g+=`<rect x="${x.toFixed(1)}" y="${(H-B-h).toFixed(1)}" width="${w.toFixed(1)}" height="${h.toFixed(1)}" fill="${css('--accent')}" fill-opacity="0.55" rx="1"/>`;
+    }
+    const m=med(pm), xm=L+(W-L-Rr)*Math.min(m/hi,1);
+    g+=`<line x1="${xm.toFixed(1)}" y1="${T}" x2="${xm.toFixed(1)}" y2="${H-B}" stroke="${css('--ink')}" stroke-width="2"/>`
+      +`<text x="${(xm+5).toFixed(1)}" y="${T+11}" font-size="11" font-family="IBM Plex Mono, monospace" fill="${css('--ink')}">mediana ${f1(m)}</text>`;
+    for(let k=0;k<=4;k++){
+      const x=L+(W-L-Rr)*k/4;
+      g+=`<text x="${x.toFixed(1)}" y="${H-B+16}" text-anchor="middle" font-size="10" font-family="IBM Plex Mono, monospace" fill="${css('--ink-3')}">${f0(hi*k/4)}</text>`;
+    }
+    g+=`<text x="${L}" y="${H-4}" font-size="10" font-family="IBM Plex Sans Condensed, sans-serif" fill="${css('--ink-3')}">$/m² (recortado al percentil 95)</text>`;
+    S.innerHTML=g;
+  })();
+  document.getElementById('histcap').textContent=`Distribución de $/m² · ${f0(F.length)} avisos en la selección`;
+  // aviso contextual
+  const fs=new Set(F.map(r=>r.f));
+  document.getElementById('aviso').innerHTML = fs.has('merc')&&fs.size>1
+    ? '<b>Cuidado al comparar.</b> mercadopiso cubre Las Mercedes, Chuao y El Rosal; ZonaVen cubre Catia, La Yaguara y La Candelaria. Sus precios van 1,3× a 2,5× separados dentro de la misma banda. Filtra por una sola fuente si vas a comparar $/m².'
+    : '<b>Todo son precios pedidos, no cerrados.</b> El «desvío» compara cada aviso con la mediana de su estado y banda de tamaño. El «repago» supone que se alquila a la mediana de su banda: es modelado, nunca observado.';
+  // tabla
+  const S2=[...F].sort((a,b)=>{
+    const x=a[orden],y2=b[orden];
+    if(x==null&&y2==null)return 0; if(x==null)return 1; if(y2==null)return -1;
+    return (typeof x==='string')?(asc?x.localeCompare(y2):y2.localeCompare(x)):(asc?x-y2:y2-x);
+  });
+  let h='<thead><tr>'+COLS.map(([k,t,izq])=>
+    `<th data-k="${k}" class="${izq?'izq':''}">${t}${orden===k?` <span class="ord">${asc?'▲':'▼'}</span>`:''}</th>`).join('')+'</tr></thead><tbody>';
+  for(const r of S2.slice(0,lim)){
+    const s=tono(r.dv), sy=r.y!=null?tono(r.y<5?-70:r.y<10?20:200):null;
+    h+=`<tr><td class="izq tit"><a href="${r.u}" target="_blank" rel="noopener">${r.n||'(sin título)'}</a>`
+     +(r.z?`<div class="n">${r.z}</div>`:'')+`</td>`
+     +`<td><span class="chip c-${r.f}">${FU[r.f]}</span>${r.q?`<div class="n">${r.q}</div>`:''}</td>`
+     +`<td class="n">${OP[r.op]}</td><td class="n">${TI[r.t]}</td>`
+     +`<td class="num">${f0(r.m)}</td><td class="num">$${f0(r.p)}</td><td class="num">${f1(r.pm)}</td>`
+     +`<td>${r.dv==null?'<span class="n">—</span>':`<span class="cell" style="background:${s.bg};color:${s.fg}">${r.dv>0?'+':''}${r.dv} %</span>`}</td>`
+     +`<td>${r.y==null?'<span class="n">—</span>':`<span class="cell" style="background:${sy.bg};color:${sy.fg}">${f1(r.y)} a</span>`}</td>`
+     +`<td class="n">${r.e||''}</td><td class="n">${r.c||''}</td></tr>`;
+  }
+  document.getElementById('tb').innerHTML=h+'</tbody>';
+  document.getElementById('mas').hidden=S2.length<=lim;
+  document.getElementById('mas').textContent=`Mostrar más · ${f0(S2.length-lim)} restantes`;
+}
+document.querySelectorAll('#q,#ff,#fo,#ft,#fb,#fe,#fc,#fq,#fd,#fy').forEach(e=>
+  e.addEventListener('input',()=>{lim=60;pinta()}));
+document.getElementById('tb').addEventListener('click',e=>{
+  const th=e.target.closest('th'); if(!th)return;
+  const k=th.dataset.k; if(orden===k)asc=!asc; else{orden=k;asc=(k!=='dv'&&k!=='y')?true:true}
+  pinta();
+});
+document.getElementById('mas').addEventListener('click',()=>{lim+=120;pinta()});
+document.getElementById('reset').addEventListener('click',()=>{
+  ['q','ff','fo','ft','fb','fe','fc','fq'].forEach(i=>document.getElementById(i).value='');
+  document.getElementById('fd').value=300; document.getElementById('fy').value=40;
+  orden='dv';asc=true;lim=60;pinta();
+});
+document.getElementById('ft2').innerHTML=
+ `${f0(R.length)} avisos comerciales únicos de Venezuela. El crudo traía 3.478: se eliminó el 32 % por estar repetido — mercadopiso listaba el mismo local hasta 13 veces con URLs distintas. Portales cosechados del marcado schema.org y de las fichas públicas (ZonaVen, bienesonline, mercadopiso); Marketplace renderizado ficha a ficha en un navegador con sesión iniciada. Septiembre 2026. Los teléfonos escritos en los títulos van enmascarados. `
+ +`El análisis y las advertencias de método están en el <a href="https://claude.ai/code/artifact/e2bb22d2-1811-40fa-b075-d69a690059f2">informe</a>.`;
+pinta();
+matchMedia('(prefers-color-scheme:dark)').addEventListener('change',pinta);
+</script>
