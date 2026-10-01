@@ -147,21 +147,27 @@ def construir(nuevos,congelado):
             if len(v)>=5: return med(v)
         v=[r['price']/r['m2'] for r in ded if r['op']==op and r['banda']==b]
         return med(v) if len(v)>=5 else None
+    # TODAS las filas, frescas y congeladas, se miden contra el MISMO patrón de hoy
     filas=[]
     for r in ded:
-        ppm=r['price']/r['m2']; pt=patron(r['op'],r['banda'],r['region'])
         e=dict(f=('zona' if r['fuente']=='zonaven' else 'bien'),op=r['op'][0],
-               t=r['tipo'][0],b=r['banda'],m=round(r['m2']),p=round(r['price']),pm=round(ppm,1),
-               e=r['region'],c=r.get('city') or '',z=(r.get('zona') or '')[:28],
-               dv=(round(100*ppm/pt-100) if pt else None),n=(r.get('name') or '')[:88],u=r['url'],q='')
-        if r['op']=='venta':
-            a=patron('alquiler',r['banda'],r['region'])
-            if a: e['y']=round(r['price']/(a*r['m2']*12),1)
+               t=r['tipo'][0],b=r['banda'],m=round(r['m2']),p=round(r['price']),
+               pm=round(r['price']/r['m2'],1),e=r['region'],c=r.get('city') or '',
+               z=(r.get('zona') or '')[:28],n=(r.get('name') or '')[:88],u=r['url'],q='')
         if r.get('lat'): e['la'],e['lo']=round(r['lat'],4),round(r['lon'],4)
         filas.append(e)
+    OPL={'v':'venta','a':'alquiler'}
+    def remide(fila):
+        op=OPL[fila['op']]; pt=patron(op,fila['b'],fila['e'])
+        fila['dv']=round(100*fila['pm']/pt-100) if pt else None
+        fila.pop('y',None)
+        if op=='venta':
+            a=patron('alquiler',fila['b'],fila['e'])
+            if a: fila['y']=round(fila['p']/(a*fila['m']*12),1)
+        return fila
     TEL=re.compile(r'(?:\+?58[\s\-\.]?)?0?4(?:12|14|16|24|26)[\s\-\.]?\d{3}[\s\-\.]?\d{4}'
                    r'|(?:\+?58[\s\-\.]?)?0?2\d{2}[\s\-\.]?\d{3}[\s\-\.]?\d{4}')
-    todo=filas+congelado
+    todo=[remide(r) for r in filas+congelado]
     for r in todo: r['n']=TEL.sub('····',r.get('n') or '')
     return todo
 
